@@ -11,7 +11,7 @@ const NavBar = ({ menuPages }) => {
 
   return (
     <div className="navbar">
-      <div>Gradient app</div>
+      <div className="home">HUE ROTATION</div>
       <div className="menu">
         {menuOpen === true &&
           menuPages &&

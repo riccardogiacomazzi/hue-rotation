@@ -1,10 +1,16 @@
 import "./Slider.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const Slider = ({ label }) => {
-  const [value, setValue] = useState(50);
+  const [value, setValue] = useState(0);
+  const lastInteractionRef = useRef(0);
 
   const handleInteraction = (e) => {
+    const now = Date.now();
+    if (now - lastInteractionRef.current < 500) return; // throttle: 500ms
+
+    lastInteractionRef.current = now;
+
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const newValue = Math.max(0, Math.min(100, (x / rect.width) * 100));
