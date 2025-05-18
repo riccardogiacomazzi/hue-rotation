@@ -1,0 +1,38 @@
+.navbar {
+  height: 7.5%;
+  border: 0.5px solid;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  margin: 0.25rem 0.25rem 0 0.25rem;
+}
+
+.navbar .menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.menu-item {
+  opacity: 0;
+  margin: 0.25rem;
+  animation: fadeIn 2s ease forwards;
+  cursor: pointer;
+}
