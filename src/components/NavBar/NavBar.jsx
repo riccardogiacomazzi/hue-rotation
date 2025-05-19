@@ -1,22 +1,21 @@
 import "./NavBar.css";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const NavBar = ({ menuPages }) => {
   const [menuOpen, setMenuOpen] = useState(true);
 
-  const handleMenuClick = () => {
-    setMenuOpen(!menuOpen);
-  };
-
   return (
     <div className="navbar">
-      <div className="home">HUE ROTATION</div>
+      <Link to={"/"} className="home">
+        HUE ROTATION
+      </Link>
       <div className="menu">
         {menuOpen === true &&
           menuPages &&
           menuPages.map((item, index) => (
-            <div
+            <Link
+              to={item}
               className="menu-item"
               key={index}
               style={{
@@ -24,10 +23,8 @@ const NavBar = ({ menuPages }) => {
               }}
             >
               {item}
-            </div>
+            </Link>
           ))}
-
-        <GiHamburgerMenu className="button" onClick={handleMenuClick} />
       </div>
     </div>
   );

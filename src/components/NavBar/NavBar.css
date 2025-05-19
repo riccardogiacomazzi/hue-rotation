@@ -14,16 +14,17 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
-  margin: 0.25rem 0.25rem 0 0.25rem;
+  margin: 0.25rem 0.25rem 0.25rem 0.25rem;
 }
 
 .home {
   font-family: "Humane", sans-serif;
-  width: 20%;
+  width: 50%;
   height: 100%;
   display: flex;
   align-items: center;
   font-size: 4rem;
+  color: black;
 }
 
 .navbar .menu {
@@ -37,18 +38,8 @@
   cursor: pointer;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .menu-item {
-  opacity: 0;
   margin: 0.25rem;
-  animation: fadeIn 2s ease forwards;
   cursor: pointer;
+  color: black;
 }

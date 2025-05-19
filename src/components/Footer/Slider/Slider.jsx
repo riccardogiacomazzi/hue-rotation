@@ -1,8 +1,9 @@
 import "./Slider.css";
 import { useState, useRef } from "react";
 
-const Slider = ({ label }) => {
+const Slider = ({ label, value2, onChange }) => {
   const [value, setValue] = useState(0);
+
   const lastInteractionRef = useRef(0);
 
   const handleInteraction = (e) => {
@@ -15,6 +16,10 @@ const Slider = ({ label }) => {
     const x = e.clientX - rect.left;
     const newValue = Math.max(0, Math.min(100, (x / rect.width) * 100));
     setValue(newValue);
+
+    if (onChange) {
+      onChange(newValue);
+    }
   };
 
   const handleDrag = (e) => {

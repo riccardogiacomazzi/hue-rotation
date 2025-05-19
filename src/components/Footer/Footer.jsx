@@ -2,19 +2,33 @@ import { useEffect, useState } from "react";
 import "./Footer.css";
 import Slider from "./Slider/Slider";
 
-const Footer = ({ gradientParameters, onSubmit }) => {
-  const [seed, setSeed] = useState("");
+const Footer = ({ gradientParameters, onSubmit, loading }) => {
+  const [promptValues, setPromptValues] = useState({
+    sliders: [0, 0, 0],
+  });
 
   useEffect(() => {
-    console.log(seed);
-  }, [seed]);
+    console.log(promptValues.sliders);
+  }, [promptValues]);
+
+  const handleSliderChange = (index, value) => {
+    console.log("change slider");
+
+    setPromptValues((prev) => {
+      const newSliders = [...prev.sliders];
+      newSliders[index] = value;
+      return {
+        ...prev,
+        sliders: newSliders,
+      };
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (onSubmit) {
-      onSubmit(seed);
+      onSubmit(promptValues);
     }
-    setSeed("");
   };
 
   return (
@@ -22,13 +36,23 @@ const Footer = ({ gradientParameters, onSubmit }) => {
       <div className="sliders-container">
         {gradientParameters &&
           gradientParameters.map((item, index) => (
-            <Slider className="grid-item" key={index} label={item}>
+            <Slider
+              onChange={(value) => handleSliderChange(index, value)}
+              className="grid-item"
+              key={index}
+              label={item}
+              value2={promptValues.sliders[index]}
+            >
               {item}
             </Slider>
           ))}
-        <form className="grid-item" onSubmit={handleSubmit}>
-          <input className="input" placeholder="Seed" onChange={(e) => setSeed(e.target.value)}></input>
-        </form>
+        <div
+          className="grid-item"
+          style={{ backgroundColor: loading ? "black" : "white", mixBlendMode: loading && "difference" }}
+          onClick={handleSubmit}
+        >
+          {loading ? "Generating" : "Generate"}
+        </div>
       </div>
     </div>
   );
