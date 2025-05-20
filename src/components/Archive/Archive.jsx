@@ -5,7 +5,7 @@ const Archive = () => {
   const [cachedStyles, setCachedStyles] = useState([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("cachedStyles");
+    const saved = sessionStorage.getItem("cachedStyles");
     if (saved) {
       setCachedStyles(JSON.parse(saved));
     }
@@ -15,7 +15,6 @@ const Archive = () => {
     <div className="archive-grid">
       {cachedStyles.map((style, index) => {
         const randomHue = Math.floor(Math.random() * 360);
-        console.log(style);
 
         return (
           <div

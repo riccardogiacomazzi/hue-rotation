@@ -3,32 +3,29 @@ import "./Footer.css";
 import Slider from "./Slider/Slider";
 
 const Footer = ({ gradientParameters, onSubmit, loading }) => {
-  const [promptValues, setPromptValues] = useState({
-    sliders: [0, 0, 0],
-  });
-
-  useEffect(() => {
-    console.log(promptValues.sliders);
-  }, [promptValues]);
+  const [sliderValues, setSliderValues] = useState([0, 0, 0]);
+  const [clickFlashed, setClickFlashed] = useState(false);
 
   const handleSliderChange = (index, value) => {
-    console.log("change slider");
-
-    setPromptValues((prev) => {
-      const newSliders = [...prev.sliders];
-      newSliders[index] = value;
-      return {
-        ...prev,
-        sliders: newSliders,
-      };
+    setSliderValues((prevValues) => {
+      const newValues = [...prevValues];
+      newValues[index] = value;
+      return newValues;
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, values) => {
     e.preventDefault();
-    if (onSubmit) {
-      onSubmit(promptValues);
+
+    if (!Array.isArray(values) || values.length !== 3) {
+      console.warn("Invalid slider values:", values);
+      return;
     }
+
+    setClickFlashed(true);
+    setTimeout(() => setClickFlashed(false), 500);
+
+    onSubmit(values);
   };
 
   return (
@@ -38,20 +35,20 @@ const Footer = ({ gradientParameters, onSubmit, loading }) => {
           gradientParameters.map((item, index) => (
             <Slider
               onChange={(value) => handleSliderChange(index, value)}
-              className="grid-item"
+              className="footer-item"
               key={index}
               label={item}
-              value2={promptValues.sliders[index]}
+              value={sliderValues[index]}
             >
               {item}
             </Slider>
           ))}
         <div
-          className="grid-item"
-          style={{ backgroundColor: loading ? "black" : "white", mixBlendMode: loading && "difference" }}
-          onClick={handleSubmit}
+          className="footer-item"
+          style={{ backgroundColor: clickFlashed ? "black" : "white", mixBlendMode: loading && "difference" }}
+          onClick={(e) => handleSubmit(e, sliderValues)}
         >
-          {loading ? "Generating" : "Generate"}
+          {clickFlashed ? "Generating" : "Generate"}
         </div>
       </div>
     </div>

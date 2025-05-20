@@ -1,4 +1,11 @@
 @font-face {
+  font-family: "Migha";
+  src: url("../../assets/fonts/Migha-Medium.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "Humane";
   src: url("../../assets/fonts/Humane-SemiBold.ttf") format("truetype");
   font-weight: normal;
@@ -8,6 +15,9 @@
 .navbar {
   height: 7.5%;
   border: 0.5px solid;
+  background-color: white;
+  opacity: 75%;
+
   border-radius: 1rem;
   display: flex;
   flex-direction: row;
@@ -19,15 +29,23 @@
 
 .home {
   font-family: "Humane", sans-serif;
-  width: 50%;
+  width: auto;
   height: 100%;
   display: flex;
   align-items: center;
-  font-size: 4rem;
+  font-size: 3rem;
   color: black;
 }
 
+.home .text {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .navbar .menu {
+  font-size: 1.25rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

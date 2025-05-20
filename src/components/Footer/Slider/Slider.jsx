@@ -1,9 +1,7 @@
 import "./Slider.css";
 import { useState, useRef } from "react";
 
-const Slider = ({ label, value2, onChange }) => {
-  const [value, setValue] = useState(0);
-
+const Slider = ({ label, value, onChange }) => {
   const lastInteractionRef = useRef(0);
 
   const handleInteraction = (e) => {
@@ -15,7 +13,6 @@ const Slider = ({ label, value2, onChange }) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const newValue = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setValue(newValue);
 
     if (onChange) {
       onChange(newValue);
@@ -27,7 +24,7 @@ const Slider = ({ label, value2, onChange }) => {
   };
 
   return (
-    <div className="grid-item" onMouseDown={handleInteraction} onMouseMove={handleDrag}>
+    <div className="footer-item" onMouseDown={handleInteraction} onMouseMove={handleDrag}>
       <div className="slider-label">{label}</div>
       <div className="slider-bar-container">
         <div className="slider-bar" style={{ width: `${value}%` }}></div>

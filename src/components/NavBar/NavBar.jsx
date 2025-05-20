@@ -8,20 +8,12 @@ const NavBar = ({ menuPages }) => {
   return (
     <div className="navbar">
       <Link to={"/"} className="home">
-        HUE ROTATION
+        <div className="text">HUE ROTATION</div>
       </Link>
       <div className="menu">
-        {menuOpen === true &&
-          menuPages &&
+        {menuPages &&
           menuPages.map((item, index) => (
-            <Link
-              to={item}
-              className="menu-item"
-              key={index}
-              style={{
-                animationDelay: `${(menuPages.length - 1 - index) * 0.2}s`,
-              }}
-            >
+            <Link to={item.toLowerCase()} className="menu-item" key={index}>
               {item}
             </Link>
           ))}
