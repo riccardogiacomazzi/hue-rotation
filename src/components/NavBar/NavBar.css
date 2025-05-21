@@ -15,9 +15,7 @@
 .navbar {
   height: 7.5%;
   border: 0.5px solid;
-  background-color: white;
-  opacity: 75%;
-
+  background-color: rgba(255, 255, 255, 0.85);
   border-radius: 1rem;
   display: flex;
   flex-direction: row;
@@ -33,8 +31,14 @@
   height: 100%;
   display: flex;
   align-items: center;
-  font-size: 3rem;
+  font-size: 4rem;
   color: black;
+}
+
+@media (max-width: 764px) {
+  .home {
+    font-size: 3.5rem;
+  }
 }
 
 .home .text {
@@ -42,6 +46,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 764px) {
+  .home .text {
+    letter-spacing: none;
+  }
 }
 
 .navbar .menu {
@@ -57,7 +67,16 @@
 }
 
 .menu-item {
-  margin: 0.25rem;
+  font-size: 1.5rem;
+  font-family: "Avenue";
+  margin: 0.5rem;
   cursor: pointer;
   color: black;
+}
+
+@media (max-width: 764px) {
+  .menu-item {
+    margin: 5ox;
+    font-size: 1rem;
+  }
 }

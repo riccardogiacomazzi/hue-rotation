@@ -3,8 +3,7 @@ import "./Footer.css";
 // import Slider from "./Slider/Slider";
 import * as Slider from "@radix-ui/react-slider";
 
-const Footer = ({ gradientParameters, onSubmit, loading }) => {
-  const [sliderValues, setSliderValues] = useState([0, 0, 0]);
+const Footer = ({ sliderValues, setSliderValues, gradientParameters, onSubmit, loading }) => {
   const [clickFlashed, setClickFlashed] = useState(false);
 
   const handleSliderChange = (index, value) => {
@@ -34,7 +33,7 @@ const Footer = ({ gradientParameters, onSubmit, loading }) => {
       <div className="sliders-container">
         {gradientParameters &&
           gradientParameters.map((item, index) => (
-            <div className="footer-item">
+            <div className="footer-item" key={index}>
               <div className="slider-label">{item}</div>
               <Slider.Root
                 className="slider-root"
@@ -51,23 +50,13 @@ const Footer = ({ gradientParameters, onSubmit, loading }) => {
                 <Slider.Thumb className="slider-thumb" aria-label="Slider Thumb" />
               </Slider.Root>
             </div>
-
-            // <Slider
-            //   onChange={(value) => handleSliderChange(index, value)}
-            //   className="footer-item"
-            //   key={index}
-            //   label={item}
-            //   value={sliderValues[index]}
-            // >
-            //   {item}
-            // </Slider>
           ))}
         <div
           className="footer-item"
           style={{ backgroundColor: clickFlashed ? "white" : "black", mixBlendMode: loading && "difference" }}
           onClick={(e) => handleSubmit(e, sliderValues)}
         >
-          <div className="button-text">{clickFlashed ? "Generating" : "Generate"}</div>
+          <div className="slider-label">{clickFlashed ? "" : "Run"}</div>
         </div>
       </div>
     </div>

@@ -106,7 +106,6 @@ const gradientGenerator = (sliderValues) => {
     if (!result.background) {
       console.warn("No background generated!", { sliderValues, result });
     }
-    console.log(result);
 
     return result;
   } catch (error) {

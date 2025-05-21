@@ -17,9 +17,8 @@ const Info = () => {
           <br />
           <br />
           <br />
-          <h2>HUE ROTATION</h2>
-          is a space for anyone who needs a quick hit of visual inspiration without distraction. It's not a marketplace.
-          It's not a toolchain. It’s a quiet corner for generating code you can use or let fade.
+          HUE ROTATION is a space for anyone who needs a quick hit of visual inspiration without distraction. It's not a
+          marketplace. It's not a toolchain. It’s a quiet corner for generating code you can use or let fade.
         </p>
         <a href="https://github.com/riccardogiacomazzi/hue-rotation">github repository</a>
       </div>

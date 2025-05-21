@@ -1,17 +1,18 @@
 .archive-grid {
+  position: absolute;
+  top: 0;
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 3 equal columns */
   grid-auto-rows: 50%;
-  gap: 1rem;
+  gap: 0.5rem;
   overflow: auto;
 }
 
 @media (max-width: 764px) {
   .archive-grid {
     grid-template-columns: repeat(1, 1fr); /* 3 equal columns */
-
     gap: 0.25rem;
   }
 }
@@ -19,5 +20,5 @@
 .archive-item {
   height: 100%;
   margin: 0.5rem 0rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }

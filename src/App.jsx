@@ -12,7 +12,7 @@ function App() {
   const [allGeneratedStyles, setAllGeneratedStyles] = useState([]);
   const [currentStyle, setCurrentStyle] = useState();
   const [loading, setLoading] = useState(false);
-  const [infoOpen, setInfoOpen] = useState(false);
+  const [sliderValues, setSliderValues] = useState([0, 0, 0]);
 
   const menuPages = ["Info", "Archive"];
   const gradientParameters = ["Glow", "Drift", "Echo"];
@@ -47,10 +47,15 @@ function App() {
             path="/"
             element={
               <>
-                {infoOpen && <div>ciaoooooo</div>}
-                <Home currentStyle={currentStyle} />
+                <Home currentStyle={currentStyle} onSubmit={() => onSubmit(sliderValues)} />
                 <div className="footer-overlay">
-                  <Footer gradientParameters={gradientParameters} onSubmit={onSubmit} loading={loading} />
+                  <Footer
+                    sliderValues={sliderValues}
+                    setSliderValues={setSliderValues}
+                    gradientParameters={gradientParameters}
+                    onSubmit={onSubmit}
+                    loading={loading}
+                  />
                 </div>
               </>
             }

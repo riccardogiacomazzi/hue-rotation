@@ -2,14 +2,20 @@
   height: 7.5vh;
   border: 0.5px solid;
   border-radius: 1rem;
-  background-color: white;
-  opacity: 75%;
+  background-color: rgba(255, 255, 255, 1);
+  opacity: 0.85;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
   margin: 0.25rem 0.25rem 0.25rem 0.25rem;
+}
+
+@media (max-width: 764px) {
+  .footer {
+    height: 10vh;
+  }
 }
 
 .sliders-container {
@@ -70,15 +76,30 @@
 }
 
 .slider-label {
+  font-family: "Humane";
+  font-size: 3.25rem;
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -52.5%);
   text-align: center;
   pointer-events: none;
   mix-blend-mode: difference;
   color: white;
   z-index: 999;
+
+  width: 75%; /* Limit to parent's width */
+  white-space: nowrap; /* Prevent line breaks */
+  overflow: hidden; /* Hide overflow */
+}
+
+@media (max-width: 764px) {
+  .slider-label {
+    font-size: 2.5rem;
+  }
 }
 
 .slider-range {
@@ -100,6 +121,5 @@
 
 .slider-bar {
   height: 100%;
-  /* box-shadow: 10px 0px 5px rgba(0, 0, 0, 1); */
   border-radius: 1rem;
 }

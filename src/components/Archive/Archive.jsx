@@ -6,8 +6,16 @@ const Archive = () => {
 
   useEffect(() => {
     const saved = sessionStorage.getItem("cachedStyles");
+
     if (saved) {
       setCachedStyles(JSON.parse(saved));
+    } else {
+      setCachedStyles([
+        {
+          background:
+            "radial-gradient(circle, hsl(200, 80%, 60%) 0%, hsl(260, 55%, 65%) 50%, hsl(360, 100%, 100%) 90%)",
+        },
+      ]);
     }
   }, []);
 
