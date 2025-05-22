@@ -29,7 +29,6 @@ function App() {
   //clean archive after X styles generated
   useEffect(() => {
     if (allGeneratedStyles.length > 100) {
-      console.log("Cleaning Archive");
       sessionStorage.removeItem("cachedStyles");
       setAllGeneratedStyles([]);
     }
@@ -63,7 +62,11 @@ function App() {
                       <Info />
                     </div>
                   )}
-                  <Home currentStyle={currentStyle} onSubmit={() => onSubmit(sliderValues)} />
+                  <Home
+                    currentStyle={currentStyle}
+                    sliderValues={sliderValues}
+                    onSubmit={() => onSubmit(sliderValues)}
+                  />
                 </div>
                 <div className="footer-overlay">
                   <Footer
@@ -78,19 +81,7 @@ function App() {
             }
           />
 
-          <Route
-            path="/archive"
-            element={
-              <>
-                {menuOpen && (
-                  <div className="info-container">
-                    <Info />
-                  </div>
-                )}
-                <Archive />
-              </>
-            }
-          />
+          <Route path="/archive" element={<Archive />} />
         </Routes>
       </Router>
     </div>

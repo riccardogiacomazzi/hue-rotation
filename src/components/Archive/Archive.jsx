@@ -25,40 +25,25 @@ const Archive = () => {
     }
   }, []);
 
-  const handleSliderChange = (index, value) => {
-    setSliderValue((prevValues) => {
-      const newValues = [...prevValues];
-      newValues[index] = value[0]; // value is an array, so take first element
-      return newValues;
-    });
-  };
-
   return (
     <div className="archive-grid">
       {cachedStyles.map((style, index) => (
-        <div key={index}>
-          {/* <Slider.Root
-            style={{ position: "absolute", marginBottom: "20" }}
-            className="slider-root"
-            defaultValue={[0]}
-            max={360}
-            step={1}
-            value={[sliderValue[index] || 0]} // controlled slider
-            onValueChange={(value) => handleSliderChange(index, value)}
-          >
-            <Slider.Track className="slider-track">
-              <div className="slider-bar" style={{ width: `${sliderValue[index] || 0}%` }} />
-              <Slider.Range className="slider-range" />
-            </Slider.Track>
-            <Slider.Thumb className="slider-thumb" aria-label="Slider Thumb" />
-          </Slider.Root> */}
-
+        <div key={index} className="archive-pair">
           <div
-            className="archive-item"
+            className="archive-item foreground"
             style={{
               ...style,
               animation: "none",
               filter: `hue-rotate(${sliderValue[index] || 0}deg)`,
+              mixBlendMode: "",
+            }}
+          />
+          <div
+            className="archive-item background"
+            style={{
+              ...style,
+              animation: "none",
+              filter: `hue-rotate(${Math.floor(Math.random() * 360)}deg)`,
             }}
           />
         </div>

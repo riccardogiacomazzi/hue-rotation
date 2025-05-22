@@ -1,12 +1,8 @@
-# React + Vite
+HUE ROTATION is a lightweight web utility that generates and displays pure CSS code.
+Each gradient is algorithmically crafted in real time, influenced by the user's input.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+What you see is never the same twice and every gradient is stored only in your browser's session.
+Once you leave, it’s gone.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+HUE ROTATION is a space for anyone who needs a spark of visual inspiration.
+It’s a quiet corner for generating ephemeral code you can use or let fade.

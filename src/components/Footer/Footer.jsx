@@ -8,7 +8,7 @@ const Footer = ({ sliderValues, setSliderValues, gradientParameters, onSubmit, l
   const handleSliderChange = (index, value) => {
     setSliderValues((prevValues) => {
       const newValues = [...prevValues];
-      newValues[index] = value;
+      newValues[index] = value[0];
       return newValues;
     });
   };

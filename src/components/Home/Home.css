@@ -7,6 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: crosshair;
 }
 
 .gradient-container {
@@ -16,7 +17,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   background: radial-gradient(circle, hsl(200, 80%, 60%) 0%, hsl(260, 55%, 65%) 50%, hsl(360 100% 100%) 90%);
   animation: hueRotate 10s linear infinite;
 }

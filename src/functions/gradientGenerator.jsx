@@ -30,6 +30,29 @@ const gradientGenerator = (sliderValues) => {
       [280, 60, 70], // Purple
     ];
 
+    //Define blend style
+    const blendStyles = [
+      "normal",
+      "multiply",
+      "screen",
+      "overlay",
+      "darken",
+      "lighten",
+      "color-dodge",
+      "color-burn",
+      "hard-light",
+      "soft-light",
+      "difference",
+      "exclusion",
+      "hue",
+      "saturation",
+      "color",
+      "luminosity",
+    ];
+
+    const blendIndex = Math.floor(Math.random() * blendStyles.length);
+    const blendSelect = blendStyles[blendIndex];
+
     // Decide number of colors based on echo (2 to 4)
     const numColors = Math.round(2 + (echo / 100) * 2);
 
@@ -101,6 +124,7 @@ const gradientGenerator = (sliderValues) => {
       background,
       animation: `hueRotate ${duration}s ${timingFunction} infinite`,
       opacity: "0.75",
+      mixBlendMode: blendSelect,
     };
 
     if (!result.background) {
@@ -114,6 +138,7 @@ const gradientGenerator = (sliderValues) => {
       background: "",
       animation: "none",
       opacity: "1",
+      mixBlendMode: blendSelect,
     };
   }
 };
