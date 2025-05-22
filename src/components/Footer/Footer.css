@@ -84,21 +84,24 @@
   position: absolute;
   top: 60%;
   left: 50%;
-  transform: translate(-50%, -52.5%);
+  transform: translate(-47.5%, -52.5%);
   text-align: center;
   pointer-events: none;
   mix-blend-mode: difference;
   color: white;
   z-index: 999;
 
-  width: 75%; /* Limit to parent's width */
-  white-space: nowrap; /* Prevent line breaks */
-  overflow: hidden; /* Hide overflow */
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media (max-width: 764px) {
   .slider-label {
     font-size: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 }
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./Footer.css";
-// import Slider from "./Slider/Slider";
 import * as Slider from "@radix-ui/react-slider";
 
 const Footer = ({ sliderValues, setSliderValues, gradientParameters, onSubmit, loading }) => {

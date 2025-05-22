@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 .env
+.gitignore
+eslint.config.js
+
 
 # Editor directories and files
 .vscode/*

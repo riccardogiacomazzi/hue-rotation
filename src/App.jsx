@@ -11,6 +11,7 @@ import gradientGenerator from "./functions/gradientGenerator";
 function App() {
   const [allGeneratedStyles, setAllGeneratedStyles] = useState([]);
   const [currentStyle, setCurrentStyle] = useState();
+  const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [sliderValues, setSliderValues] = useState([0, 0, 0]);
 
@@ -24,6 +25,15 @@ function App() {
       setAllGeneratedStyles(parsedStyles);
     }
   }, []);
+
+  //clean archive after X styles generated
+  useEffect(() => {
+    if (allGeneratedStyles.length > 100) {
+      console.log("Cleaning Archive");
+      sessionStorage.removeItem("cachedStyles");
+      setAllGeneratedStyles([]);
+    }
+  }, [allGeneratedStyles]);
 
   const onSubmit = (sliderValues) => {
     setLoading(true);
@@ -40,14 +50,21 @@ function App() {
     <div className="app-container">
       <Router>
         <div className="navbar-overlay">
-          <NavBar menuPages={menuPages} />
+          <NavBar menuPages={menuPages} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         </div>
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <Home currentStyle={currentStyle} onSubmit={() => onSubmit(sliderValues)} />
+                <div>
+                  {menuOpen && (
+                    <div className="info-container">
+                      <Info />
+                    </div>
+                  )}
+                  <Home currentStyle={currentStyle} onSubmit={() => onSubmit(sliderValues)} />
+                </div>
                 <div className="footer-overlay">
                   <Footer
                     sliderValues={sliderValues}
@@ -60,19 +77,16 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/info"
-            element={
-              <>
-                <Info />
-              </>
-            }
-          />
 
           <Route
             path="/archive"
             element={
               <>
+                {menuOpen && (
+                  <div className="info-container">
+                    <Info />
+                  </div>
+                )}
                 <Archive />
               </>
             }
