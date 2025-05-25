@@ -4,15 +4,15 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 3 equal columns */
-  grid-auto-rows: 50%;
+  grid-template-columns: repeat(1, 1fr);
+  grid-auto-rows: 100%;
   gap: 0.5rem;
   overflow: auto;
 }
 
 @media (max-width: 764px) {
   .archive-grid {
-    grid-template-columns: repeat(1, 1fr); /* 3 equal columns */
+    grid-template-columns: repeat(1, 1fr);
     gap: 0.25rem;
   }
 }
@@ -23,13 +23,17 @@
   height: 100%;
 }
 
+.archive-visual {
+  width: 100%;
+  height: 100%;
+}
+
 .archive-item {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 0.5rem;
 }
 
 .archive-item-foreground {
@@ -39,4 +43,48 @@
 .archive-item-background {
   z-index: 1;
   rotate: 180deg;
+}
+
+.buttons-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 7.5vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 3;
+}
+
+@media (max-width: 764px) {
+  .buttons-container {
+    align-items: flex-end;
+  }
+}
+
+.button {
+  font-size: 1.5rem;
+  letter-spacing: 0.2rem; /* reduced to prevent overflow */
+  text-transform: uppercase;
+  font-family: "Humane";
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: 70%; /* or use fixed height like 40px if necessary */
+  border: 0.5px solid;
+  border-radius: 1rem;
+  opacity: 0.75;
+  transition: background-color 0.3s ease;
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 764px) {
+  .button {
+    width: 100%;
+  }
 }

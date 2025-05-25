@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import "./Footer.css";
 import * as Slider from "@radix-ui/react-slider";
 
-const Footer = ({ sliderValues, setSliderValues, gradientParameters, onSubmit, loading }) => {
-  const [clickFlashed, setClickFlashed] = useState(false);
-
+const Footer = ({
+  sliderValues,
+  setSliderValues,
+  gradientParameters,
+  onSubmit,
+  loading,
+  clickFlashed,
+  setClickFlashed,
+}) => {
   const handleSliderChange = (index, value) => {
     setSliderValues((prevValues) => {
       const newValues = [...prevValues];
@@ -55,7 +61,7 @@ const Footer = ({ sliderValues, setSliderValues, gradientParameters, onSubmit, l
           style={{ backgroundColor: clickFlashed ? "white" : "black", mixBlendMode: loading && "difference" }}
           onClick={(e) => handleSubmit(e, sliderValues)}
         >
-          <div className="slider-label">{clickFlashed ? "" : "Run"}</div>
+          <div className="slider-label">{clickFlashed ? "" : "New"}</div>
         </div>
       </div>
     </div>

@@ -126,3 +126,10 @@
   height: 100%;
   border-radius: 1rem;
 }
+
+.svg-icon {
+  height: 50px;
+  border: solid red;
+  fill: white;
+  z-index: 999;
+}

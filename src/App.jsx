@@ -11,9 +11,9 @@ import gradientGenerator from "./functions/gradientGenerator";
 function App() {
   const [allGeneratedStyles, setAllGeneratedStyles] = useState([]);
   const [currentStyle, setCurrentStyle] = useState();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [sliderValues, setSliderValues] = useState([0, 0, 0]);
+  const [clickFlashed, setClickFlashed] = useState(false);
 
   const menuPages = ["Info", "Archive"];
   const gradientParameters = ["Glow", "Drift", "Echo"];
@@ -35,6 +35,9 @@ function App() {
   }, [allGeneratedStyles]);
 
   const onSubmit = (sliderValues) => {
+    setClickFlashed(true);
+    setTimeout(() => setClickFlashed(false), 500);
+
     setLoading(true);
     const generatedStyle = gradientGenerator(sliderValues);
     const updatedStyles = [...allGeneratedStyles, generatedStyle];
@@ -49,25 +52,15 @@ function App() {
     <div className="app-container">
       <Router>
         <div className="navbar-overlay">
-          <NavBar menuPages={menuPages} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+          <NavBar menuPages={menuPages} />
         </div>
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <div>
-                  {menuOpen && (
-                    <div className="info-container">
-                      <Info />
-                    </div>
-                  )}
-                  <Home
-                    currentStyle={currentStyle}
-                    sliderValues={sliderValues}
-                    onSubmit={() => onSubmit(sliderValues)}
-                  />
-                </div>
+                <Home currentStyle={currentStyle} sliderValues={sliderValues} onSubmit={() => onSubmit(sliderValues)} />
+
                 <div className="footer-overlay">
                   <Footer
                     sliderValues={sliderValues}
@@ -75,12 +68,14 @@ function App() {
                     gradientParameters={gradientParameters}
                     onSubmit={onSubmit}
                     loading={loading}
+                    clickFlashed={clickFlashed}
+                    setClickFlashed={setClickFlashed}
                   />
                 </div>
               </>
             }
           />
-
+          <Route path="/info" element={<Info currentStyle={currentStyle} />} />
           <Route path="/archive" element={<Archive />} />
         </Routes>
       </Router>
