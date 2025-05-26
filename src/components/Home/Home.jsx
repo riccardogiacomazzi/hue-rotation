@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./Home.css";
 
-const Home = ({ currentStyle, onSubmit, sliderValues }) => {
+const Home = ({ currentStyle, setClickStyle, sliderValues, onGradientClick }) => {
   const blendStyle = [
     "normal",
     "multiply",
@@ -31,6 +31,9 @@ const Home = ({ currentStyle, onSubmit, sliderValues }) => {
   const [blendIndex, setBlendIndex] = useState(getBlendMode(sliderValues));
   const [hasSliderChanged, setHasSliderChanged] = useState(false);
 
+  const topRef = useRef(null);
+  const bottomRef = useRef(null);
+
   useEffect(() => {
     setBlendIndex(getBlendMode(sliderValues));
     getBlendMode(sliderValues);
@@ -43,16 +46,44 @@ const Home = ({ currentStyle, onSubmit, sliderValues }) => {
 
   const computedBlendMode = hasSliderChanged ? blendStyle[blendIndex] : currentStyle?.mixBlendMode;
 
+  //saves styles from DOM at click
+  const handleClick = () => {
+    onGradientClick();
+    if (topRef.current && bottomRef.current) {
+      const topStyle = getComputedStyle(topRef.current);
+      const bottomStyle = getComputedStyle(bottomRef.current);
+
+      const stylesToArchive = {
+        topGradient: {
+          background: topStyle.background,
+          filter: topStyle.filter,
+        },
+        bottomGradient: {
+          background: bottomStyle.background,
+          mixBlendMode: bottomStyle.mixBlendMode,
+          filter: bottomStyle.filter,
+        },
+      };
+
+      setClickStyle(stylesToArchive);
+    }
+  };
+
   return (
-    <div className="home-container">
-      <div className="gradient-container" style={{ ...currentStyle, mixBlendMode: `` }} onClick={() => onSubmit()} />
+    <div className="home-container" onClick={() => handleClick()}>
+      <div
+        className="gradient-container"
+        style={{ background: currentStyle.background, animation: currentStyle.animation }}
+        ref={topRef}
+      />
       <div
         className="gradient-container-bottom"
         style={{
-          ...currentStyle,
+          background: currentStyle.background,
+          animation: currentStyle.animation,
           mixBlendMode: computedBlendMode,
         }}
-        onClick={() => onSubmit()}
+        ref={bottomRef}
       />
     </div>
   );

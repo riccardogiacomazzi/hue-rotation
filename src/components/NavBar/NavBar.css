@@ -57,28 +57,30 @@
 }
 
 .navbar .menu {
+  width: 50%;
+  height: 100%;
   font-size: 1.25rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
-.button {
-  cursor: pointer;
-}
-
 .menu-item {
+  min-width: 30%;
+  height: 100%;
   font-size: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   font-family: "Avenue";
-  margin: 0.5rem;
   cursor: pointer;
   color: black;
 }
 
 @media (max-width: 764px) {
   .menu-item {
-    margin: 5px;
     font-size: 0.9rem;
+    min-width: 50%;
   }
 }

@@ -10,10 +10,16 @@ import gradientGenerator from "./functions/gradientGenerator";
 
 function App() {
   const [allGeneratedStyles, setAllGeneratedStyles] = useState([]);
-  const [currentStyle, setCurrentStyle] = useState();
+  const [currentStyle, setCurrentStyle] = useState({
+    background: "radial-gradient(circle, hsl(200, 80%, 60%) 0%, hsl(260, 55%, 65%) 50%, hsl(360 100% 100%) 90%)",
+    animation: "hueRotate 10s linear infinite",
+  });
+  const [clickStyle, setClickStyle] = useState({});
+
   const [loading, setLoading] = useState(false);
   const [sliderValues, setSliderValues] = useState([0, 0, 0]);
   const [clickFlashed, setClickFlashed] = useState(false);
+  const [savedFlashed, setSavedFlashed] = useState(false);
 
   const menuPages = ["Info", "Archive"];
   const gradientParameters = ["Glow", "Drift", "Echo"];
@@ -28,38 +34,56 @@ function App() {
 
   //clean archive after X styles generated
   useEffect(() => {
-    if (allGeneratedStyles.length > 100) {
+    if (allGeneratedStyles.length > 25) {
       sessionStorage.removeItem("cachedStyles");
       setAllGeneratedStyles([]);
     }
   }, [allGeneratedStyles]);
 
+  //generates new style
   const onSubmit = (sliderValues) => {
     setClickFlashed(true);
     setTimeout(() => setClickFlashed(false), 500);
 
     setLoading(true);
     const generatedStyle = gradientGenerator(sliderValues);
-    const updatedStyles = [...allGeneratedStyles, generatedStyle];
-    setAllGeneratedStyles(updatedStyles);
 
     setCurrentStyle(generatedStyle);
-    sessionStorage.setItem("cachedStyles", JSON.stringify(updatedStyles));
     setLoading(false);
   };
+
+  //onGradientClick -> saves to sessionStorage
+  const onGradientClick = () => {
+    setSavedFlashed(true);
+    setTimeout(() => setSavedFlashed(false), 500);
+  };
+
+  //saves current gradient to sessionStorage on click
+  useEffect(() => {
+    if (!clickStyle || Object.keys(clickStyle).length === 0) return;
+    const updatedStyles = [...allGeneratedStyles, clickStyle];
+    setAllGeneratedStyles(updatedStyles);
+    sessionStorage.setItem("cachedStyles", JSON.stringify(updatedStyles));
+  }, [clickStyle]);
 
   return (
     <div className="app-container">
       <Router>
         <div className="navbar-overlay">
-          <NavBar menuPages={menuPages} />
+          <NavBar menuPages={menuPages} savedFlashed={savedFlashed} />
         </div>
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <Home currentStyle={currentStyle} sliderValues={sliderValues} onSubmit={() => onSubmit(sliderValues)} />
+                <Home
+                  currentStyle={currentStyle}
+                  setCurrentStyle={setCurrentStyle}
+                  setClickStyle={setClickStyle}
+                  sliderValues={sliderValues}
+                  onGradientClick={onGradientClick}
+                />
 
                 <div className="footer-overlay">
                   <Footer

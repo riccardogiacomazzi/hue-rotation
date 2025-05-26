@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import "./Info.css";
 
-const Info = ({ currentStyle }) => {
-  useEffect(() => {
-    console.log(currentStyle);
-  }, [currentStyle]);
+const Info = () => {
   return (
     <div className="info-text-container">
       <div className="info-text-wrapper">
