@@ -118,10 +118,11 @@ const Archive = () => {
           <div
             style={{ height: "100vh", width: "100vw" }}
             className="archive-visual"
+            id={`archive-visual-${index}`}
             ref={(el) => (archiveRef.current[index] = el)}
           >
             {/* Generates visual based on cached styles */}
-            <div dangerouslySetInnerHTML={{ __html: style }} />
+            <div id="archive-visual" dangerouslySetInnerHTML={{ __html: style }} />
           </div>
         </div>
       ))}

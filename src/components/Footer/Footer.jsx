@@ -23,7 +23,6 @@ const Footer = ({
     e.preventDefault();
 
     if (!Array.isArray(values) || values.length !== 3) {
-      console.warn("Invalid slider values:", values);
       return;
     }
 

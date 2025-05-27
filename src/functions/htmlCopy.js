@@ -71,6 +71,6 @@ export const copyStyle = (index, archiveRef, handleCodeClick) => {
 `.trim();
 
   navigator.clipboard.writeText(htmlContent).catch((err) => {
-    console.error("Failed to copy HTML", err);
+    console.error("Failed to copy HTML");
   });
 };

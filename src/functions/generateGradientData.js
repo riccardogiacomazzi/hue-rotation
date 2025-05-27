@@ -86,7 +86,7 @@ const generateGradientData = (sliderValues) => {
       },
     };
   } catch (error) {
-    console.warn("Error generating gradient data", error);
+    console.warn("Error generating gradient data");
     return null;
   }
 };

@@ -1,46 +1,50 @@
-import html2canvas from "html2canvas";
+import * as htmlToImage from "html-to-image";
 
 export const copyJpeg = async (htmlString, index, handleJpegClick) => {
   handleJpegClick(index);
 
-  const wrapper = document.createElement("div");
-  wrapper.style.position = "fixed";
-  wrapper.style.top = "-10000px";
-  wrapper.style.left = "-10000px";
-  wrapper.style.width = "100vw";
-  wrapper.style.height = "100vh";
-  wrapper.style.zIndex = "-1";
-  wrapper.style.display = "block";
-  wrapper.style.overflow = "hidden";
-  wrapper.style.background = "transparent";
-
-  const tempContainer = document.createElement("div");
-  tempContainer.style.width = "100vw";
-  tempContainer.style.height = "100vh";
-  tempContainer.innerHTML = htmlString;
-
-  wrapper.appendChild(tempContainer);
-  document.body.appendChild(wrapper);
+  const waitForElement = (id, timeout = 2000) => {
+    return new Promise((resolve, reject) => {
+      const interval = 50;
+      let elapsed = 0;
+      const check = () => {
+        const el = document.getElementById(id);
+        if (el) return resolve(el);
+        elapsed += interval;
+        if (elapsed >= timeout) return reject(new Error(`Element #${id} not found in time`));
+        setTimeout(check, interval);
+      };
+      check();
+    });
+  };
 
   try {
-    await new Promise((resolve) => requestAnimationFrame(resolve));
+    const node = await waitForElement(`archive-visual-${index}`);
+    const width = node.offsetWidth;
+    const height = node.offsetHeight;
 
-    const canvas = await html2canvas(tempContainer, {
-      useCORS: true,
-      backgroundColor: null,
-      scale: 5,
-      logging: false,
-      width: tempContainer.offsetWidth,
-      height: tempContainer.offsetHeight,
-    });
+    const dataUrl = await htmlToImage.toJpeg(node, { quality: 0.97, width, height, pixelRatio: 2 });
+
+    // Get current date/time
+    const now = new Date();
+
+    // Format as HHMMDDMMYY
+    const pad = (num) => num.toString().padStart(2, "0");
+    const timestamp =
+      pad(now.getHours()) +
+      pad(now.getMinutes()) +
+      pad(now.getSeconds()) +
+      pad(now.getDate()) +
+      pad(now.getMonth() + 1) + // Months are 0-based
+      now.getFullYear().toString().slice(-2);
+
+    const filename = `Hue Rotation_${timestamp}.jpeg`;
 
     const link = document.createElement("a");
-    link.download = `Hue Rotation ${index}.jpeg`;
-    link.href = canvas.toDataURL("image/jpeg", 0.95);
+    link.download = filename;
+    link.href = dataUrl;
     link.click();
   } catch (err) {
-    console.error("Error capturing from style HTML:", err);
-  } finally {
-    wrapper.remove();
+    console.error("Error generating JPEG");
   }
 };
