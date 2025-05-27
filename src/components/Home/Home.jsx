@@ -31,6 +31,9 @@ const Home = ({ currentStyle, setCurrentStyle, sliderValues, onGradientClick }) 
     const saturation = 1 + glow / 50;
     const blur = drift;
     const contrast = 1 + echo / 100;
+    const hueRotate = ((glow + drift + echo) / 300) * 360;
+    const topHue = currentStyle.hueRotate;
+    const bottomHue = (topHue + 90) % 360;
 
     setCurrentStyle((prev) => ({
       ...prev,
@@ -39,14 +42,17 @@ const Home = ({ currentStyle, setCurrentStyle, sliderValues, onGradientClick }) 
       saturation,
       blur,
       contrast,
+      hueRotate,
+      topHue,
+      bottomHue,
     }));
   }, [sliderValues]);
 
-  // build the filter strings including hue-rotate animation
-  const baseFilterTop = `saturate(${currentStyle.saturation}) blur(${currentStyle.blur}px) contrast(${currentStyle.contrast})`;
+  // build the filter strings
+  const baseFilterTop = `saturate(${currentStyle.saturation}) blur(${currentStyle.blur}px) contrast(${currentStyle.contrast}) hue-rotate(${currentStyle.topHue}deg)`;
   const baseFilterBottom = `saturate(${currentStyle.saturation * 1.25}) blur(${currentStyle.blur / 2}px) contrast(${
     currentStyle.contrast * 1.25
-  })`;
+  }) hue-rotate(${currentStyle.bottomHue}deg)`;
 
   return (
     <div className="home-container" onClick={handleClick}>

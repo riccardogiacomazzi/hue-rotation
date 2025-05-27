@@ -19,7 +19,7 @@ const Info = () => {
             <br />
             It’s a quiet corner for generating ephemeral code you can use or let fade.
           </p>
-          {/* <a href="https://github.com/riccardogiacomazzi/hue-rotation">github repository</a> */}
+          <a href="https://github.com/riccardogiacomazzi/hue-rotation">github repository</a>
         </div>
       </div>
       <div className="info-visual-wrapper">
@@ -28,7 +28,7 @@ const Info = () => {
           style={{
             background:
               "radial-gradient(at 11.661% 50.4%, rgb(230, 59, 26) 7.2%, rgb(194, 133, 224) 50.2%, rgb(237, 94, 142) 93.2%), radial-gradient(at 88.339% 49.6%, rgb(26, 195, 230) 7.2%, rgb(163, 224, 133) 50.2%, rgb(94, 237, 190) 93.2%)",
-            animation: "12.55s ease 0s infinite normal none running hueRotate",
+            animation: "25s ease 0s infinite normal none running hueRotate",
             filter: "hue-rotate(37deg)",
           }}
         />
@@ -37,7 +37,7 @@ const Info = () => {
           style={{
             background:
               "radial-gradient(at 11.661% 50.4%, rgb(230, 59, 26) 7.2%, rgb(194, 133, 224) 50.2%, rgb(237, 94, 142) 93.2%), radial-gradient(at 88.339% 49.6%, rgb(26, 195, 230) 7.2%, rgb(163, 224, 133) 50.2%, rgb(94, 237, 190) 93.2%)",
-            animation: "12.55s ease 0s infinite normal none running hueRotate",
+            animation: "40s ease 0s infinite normal none running hueRotate",
             filter: "hue-rotate(237deg)",
             transform: "rotate(180deg)",
             mixBlendMode: "lighten",
