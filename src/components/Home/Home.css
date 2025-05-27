@@ -10,7 +10,8 @@
   cursor: crosshair;
 }
 
-.gradient-container {
+.gradient-container,
+.gradient-container-bottom {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -20,20 +21,16 @@
 }
 
 .gradient-container-bottom {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   rotate: 180deg;
+  mix-blend-mode: "";
+  transition: transform 0.3s ease;
 }
 
 @keyframes hueRotate {
-  from {
-    filter: hue-rotate(0deg);
+  0% {
+    hue: 0deg;
   }
-  to {
-    filter: hue-rotate(360deg);
+  100% {
+    hue: 360deg;
   }
 }

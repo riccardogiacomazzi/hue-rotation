@@ -21,6 +21,7 @@
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .archive-visual {
@@ -37,12 +38,21 @@
 }
 
 .archive-item-foreground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 2;
 }
 
 .archive-item-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
-  rotate: 180deg;
 }
 
 .buttons-container {
@@ -59,6 +69,8 @@
 @media (max-width: 764px) {
   .buttons-container {
     align-items: flex-end;
+    justify-content: center;
+    padding: 0.25rem;
   }
 }
 
@@ -67,7 +79,7 @@
   letter-spacing: 0.2rem; /* reduced to prevent overflow */
   text-transform: uppercase;
   font-family: "Humane";
-  color: white;
+  color: black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,7 +89,6 @@
   border-radius: 1rem;
   opacity: 0.75;
   transition: background-color 0.3s ease;
-  backdrop-filter: blur(10px);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

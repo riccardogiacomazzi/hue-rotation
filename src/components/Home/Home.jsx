@@ -1,87 +1,71 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import "./Home.css";
 
-const Home = ({ currentStyle, setClickStyle, sliderValues, onGradientClick }) => {
-  const blendStyle = [
-    "normal",
-    "multiply",
-    "screen",
-    "overlay",
-    "darken",
-    "lighten",
-    "color-dodge",
-    "color-burn",
-    "hard-light",
-    "soft-light",
-    "difference",
-    "exclusion",
-    "hue",
-    "saturation",
-    "color",
-    "luminosity",
-  ];
-
-  const getBlendMode = (sliders) => {
-    const total = sliders.reduce((sum, value) => sum + value, 0);
-    const maxSum = 300;
-    const blendIndex = Math.floor((total / maxSum) * (blendStyle.length - 1));
-    return blendIndex;
-  };
-
-  const [blendIndex, setBlendIndex] = useState(getBlendMode(sliderValues));
-  const [hasSliderChanged, setHasSliderChanged] = useState(false);
-
+const Home = ({ currentStyle, setCurrentStyle, sliderValues, onGradientClick }) => {
   const topRef = useRef(null);
   const bottomRef = useRef(null);
 
-  useEffect(() => {
-    setBlendIndex(getBlendMode(sliderValues));
-    getBlendMode(sliderValues);
-  }, [sliderValues]);
-
-  useEffect(() => {
-    setBlendIndex(getBlendMode(sliderValues));
-    setHasSliderChanged(true);
-  }, [sliderValues]);
-
-  const computedBlendMode = hasSliderChanged ? blendStyle[blendIndex] : currentStyle?.mixBlendMode;
-
-  //saves styles from DOM at click
   const handleClick = () => {
-    onGradientClick();
     if (topRef.current && bottomRef.current) {
-      const topStyle = getComputedStyle(topRef.current);
-      const bottomStyle = getComputedStyle(bottomRef.current);
+      const topHtml = topRef.current.outerHTML;
+      const bottomHtml = bottomRef.current.outerHTML;
 
-      const stylesToArchive = {
-        topGradient: {
-          background: topStyle.background,
-          filter: topStyle.filter,
-        },
-        bottomGradient: {
-          background: bottomStyle.background,
-          mixBlendMode: bottomStyle.mixBlendMode,
-          filter: bottomStyle.filter,
-        },
-      };
+      const combinedHtml = `<div class="home-gradient-html">${topHtml}${bottomHtml}</div>`;
 
-      setClickStyle(stylesToArchive);
+      const stored = sessionStorage.getItem("storedGradientHTMLArray");
+      const htmlArray = stored ? JSON.parse(stored) : [];
+
+      const isDuplicate = htmlArray.includes(combinedHtml);
+      if (!isDuplicate) {
+        onGradientClick();
+        htmlArray.push(combinedHtml);
+        sessionStorage.setItem("storedGradientHTMLArray", JSON.stringify(htmlArray));
+      }
     }
   };
 
+  useEffect(() => {
+    const [glow, drift, echo] = sliderValues;
+
+    const scale = 1 + drift / 200;
+    const saturation = 1 + glow / 50;
+    const blur = drift;
+    const contrast = 1 + echo / 100;
+
+    setCurrentStyle((prev) => ({
+      ...prev,
+      topScale: scale,
+      bottomScale: scale * 2,
+      saturation,
+      blur,
+      contrast,
+    }));
+  }, [sliderValues]);
+
+  // build the filter strings including hue-rotate animation
+  const baseFilterTop = `saturate(${currentStyle.saturation}) blur(${currentStyle.blur}px) contrast(${currentStyle.contrast})`;
+  const baseFilterBottom = `saturate(${currentStyle.saturation * 1.25}) blur(${currentStyle.blur / 2}px) contrast(${
+    currentStyle.contrast * 1.25
+  })`;
+
   return (
-    <div className="home-container" onClick={() => handleClick()}>
+    <div className="home-container" onClick={handleClick}>
       <div
         className="gradient-container"
-        style={{ background: currentStyle.background, animation: currentStyle.animation }}
+        style={{
+          background: currentStyle.background,
+          transform: `scale(${currentStyle.topScale || 1})`,
+          filter: baseFilterTop,
+        }}
         ref={topRef}
       />
       <div
         className="gradient-container-bottom"
         style={{
           background: currentStyle.background,
-          animation: currentStyle.animation,
-          mixBlendMode: computedBlendMode,
+          mixBlendMode: currentStyle.mixBlendMode,
+          transform: `scale(${currentStyle.bottomScale})`,
+          filter: baseFilterBottom,
         }}
         ref={bottomRef}
       />

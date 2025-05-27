@@ -12,12 +12,13 @@ const Archive = () => {
 
   //loads styles on render
   useEffect(() => {
-    const saved = sessionStorage.getItem("cachedStyles");
+    const saved = sessionStorage.getItem("storedGradientHTMLArray");
     if (saved) {
       const parsed = JSON.parse(saved);
       setCachedStyles(parsed);
+
       setJpegFlashed(parsed.map(() => false)); //initializes jpegButton status
-      setCodeFlashed(parsed.map(() => false));
+      setCodeFlashed(parsed.map(() => false)); //initializes htmlButton status
     }
   }, []);
 
@@ -65,37 +66,20 @@ const Archive = () => {
             <div
               className="button"
               onClick={() => downloadAsJpeg(index)}
-              style={{ backgroundColor: jpegFlashed[index] ? "white" : "black" }}
+              style={{ backgroundColor: jpegFlashed[index] ? "black" : "white" }}
             >
               JPEG
             </div>
             <div
               className="button"
               onClick={() => copyStyle(index)}
-              style={{ backgroundColor: codeFlashed[index] ? "white" : "black" }}
+              style={{ backgroundColor: codeFlashed[index] ? "black" : "white" }}
             >
               HTML
             </div>
           </div>
-
           {/* Generates visual based on received styles */}
-          <div className="archive-visual">
-            <div
-              className="archive-item foreground"
-              style={{
-                ...style.topGradient,
-                animation: "none",
-              }}
-            />
-            <div
-              className="archive-item background"
-              style={{
-                ...style.bottomGradient,
-                animation: "none",
-                rotate: "180deg",
-              }}
-            />
-          </div>
+          <div dangerouslySetInnerHTML={{ __html: style }} />
         </div>
       ))}
     </div>

@@ -6,13 +6,14 @@ import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Archive from "./components/Archive/Archive";
 import Info from "./components/Info/Info";
-import gradientGenerator from "./functions/gradientGenerator";
+
+import generateGradientData from "./functions/generateGradientData";
+import renderGradientStyle from "./functions/renderGradientStyle";
 
 function App() {
   const [allGeneratedStyles, setAllGeneratedStyles] = useState([]);
   const [currentStyle, setCurrentStyle] = useState({
     background: "radial-gradient(circle, hsl(200, 80%, 60%) 0%, hsl(260, 55%, 65%) 50%, hsl(360 100% 100%) 90%)",
-    animation: "hueRotate 10s linear infinite",
   });
   const [clickStyle, setClickStyle] = useState({});
 
@@ -44,11 +45,13 @@ function App() {
   const onSubmit = (sliderValues) => {
     setClickFlashed(true);
     setTimeout(() => setClickFlashed(false), 500);
-
     setLoading(true);
-    const generatedStyle = gradientGenerator(sliderValues);
 
-    setCurrentStyle(generatedStyle);
+    const gradientData = generateGradientData(sliderValues);
+    const style = renderGradientStyle(gradientData);
+
+    setCurrentStyle(style);
+
     setLoading(false);
   };
 
@@ -100,7 +103,7 @@ function App() {
             }
           />
           <Route path="/info" element={<Info currentStyle={currentStyle} />} />
-          <Route path="/archive" element={<Archive />} />
+          <Route path="/archive" element={<Archive clickStyle={{ clickStyle }} />} />
         </Routes>
       </Router>
     </div>

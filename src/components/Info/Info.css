@@ -57,11 +57,12 @@
   max-height: 70vh;
   z-index: 5;
 }
-@keyframes hueRotate {
+
+/* @keyframes hueRotate {
   from {
     filter: hue-rotate(0deg);
   }
   to {
     filter: hue-rotate(360deg);
   }
-}
+} */
