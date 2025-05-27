@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
 
@@ -17,9 +16,9 @@ const NavBar = ({ menuPages, savedFlashed }) => {
               to={item.toLowerCase()}
               className="menu-item"
               key={index}
-              style={{ color: isArchive && savedFlashed && "#535bf2", backdropFilter: "blur(5px)" }}
+              style={{ color: isArchive && savedFlashed && "#535bf2" }}
             >
-              {isArchive && savedFlashed ? "Saved!" : item}
+              {isArchive && savedFlashed ? "Saved" : item}
             </Link>
           );
         })}

@@ -1,6 +1,4 @@
 export const copyStyle = (index, archiveRef, handleCodeClick) => {
-  console.log(index, archiveRef, handleCodeClick);
-
   handleCodeClick(index);
   const pairElement = archiveRef.current?.[index];
   if (!pairElement) return;
@@ -12,7 +10,7 @@ export const copyStyle = (index, archiveRef, handleCodeClick) => {
 
   const getFilteredStyle = (el) => {
     const style = el.style;
-    const keys = ["background-image", "opacity", "mix-blend-mode", "filter"];
+    const keys = ["background-image", "opacity", "mix-blend-mode", "filter", "transform"];
     return keys
       .map((key) => {
         const value = style.getPropertyValue(key);
@@ -22,8 +20,19 @@ export const copyStyle = (index, archiveRef, handleCodeClick) => {
       .join(" ");
   };
 
+  const appendRotateToTransform = (styleStr, angle = "180deg") => {
+    const transformRegex = /transform:\s*([^;]+);?/;
+    const match = styleStr.match(transformRegex);
+    if (match) {
+      const newTransform = match[1] + ` rotate(${angle})`;
+      return styleStr.replace(transformRegex, `transform: ${newTransform};`);
+    } else {
+      return styleStr + ` transform: rotate(${angle});`;
+    }
+  };
+
   const foregroundStyle = getFilteredStyle(foreground);
-  const backgroundStyle = getFilteredStyle(background);
+  const backgroundStyle = appendRotateToTransform(getFilteredStyle(background), "180deg");
 
   const htmlContent = `
 <!DOCTYPE html>
@@ -38,13 +47,14 @@ export const copyStyle = (index, archiveRef, handleCodeClick) => {
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
-    .archive-pair {
+    .gradient-container {
       position: relative;
       width: 100%;
       height: 100%;
     }
-    .archive-item {
+    .gradient {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -52,9 +62,9 @@ export const copyStyle = (index, archiveRef, handleCodeClick) => {
   </style>
 </head>
 <body>
-  <div class="archive-pair">
-    <div class="archive-item" style="${backgroundStyle}"></div>
-    <div class="archive-item" style="${foregroundStyle}"></div>
+  <div class="gradient-container">
+    <div class="gradient" style="${foregroundStyle}"></div>
+    <div class="gradient" style="${backgroundStyle}"></div>
   </div>
 </body>
 </html>
