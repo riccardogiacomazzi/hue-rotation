@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
 import "./Home.css";
+import { postGradient } from "../../services/gradients";
 
 const Home = ({ currentStyle, setCurrentStyle, sliderValues, onGradientClick }) => {
   const topRef = useRef(null);
   const bottomRef = useRef(null);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (topRef.current && bottomRef.current) {
       const topHtml = topRef.current.outerHTML;
       const bottomHtml = bottomRef.current.outerHTML;
@@ -20,6 +21,16 @@ const Home = ({ currentStyle, setCurrentStyle, sliderValues, onGradientClick }) 
         onGradientClick();
         htmlArray.push(combinedHtml);
         sessionStorage.setItem("storedGradientHTMLArray", JSON.stringify(htmlArray));
+
+        // Send to backend
+        try {
+          await postGradient({
+            html: combinedHtml,
+            timestamp: new Date().toISOString(),
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
   };

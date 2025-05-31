@@ -1,7 +1,11 @@
 import "./NavBar.css";
 import { Link } from "react-router-dom";
 
-const NavBar = ({ menuPages, savedFlashed }) => {
+const NavBar = ({ menuPages, savedFlashed, isSession, setIsSession }) => {
+  const handleArchiveClick = () => {
+    setIsSession(!isSession);
+  };
+
   return (
     <div className="navbar">
       <Link to={"/"} className="home">
@@ -17,6 +21,7 @@ const NavBar = ({ menuPages, savedFlashed }) => {
               className="menu-item"
               key={index}
               style={{ color: isArchive && savedFlashed && "#535bf2" }}
+              onClick={isArchive ? handleArchiveClick : undefined}
             >
               {isArchive && savedFlashed ? "Saved" : item}
             </Link>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, isSession } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
@@ -23,6 +23,8 @@ function App() {
   const [savedFlashed, setSavedFlashed] = useState(false);
 
   const menuPages = ["Info", "Archive"];
+  const [isSession, setIsSession] = useState(true);
+
   const gradientParameters = ["Glow", "Drift", "Echo"];
 
   useEffect(() => {
@@ -73,7 +75,7 @@ function App() {
     <div className="app-container">
       <Router>
         <div className="navbar-overlay">
-          <NavBar menuPages={menuPages} savedFlashed={savedFlashed} />
+          <NavBar menuPages={menuPages} savedFlashed={savedFlashed} isSession={isSession} setIsSession={setIsSession} />
         </div>
         <Routes>
           <Route
@@ -103,7 +105,10 @@ function App() {
             }
           />
           <Route path="/info" element={<Info currentStyle={currentStyle} />} />
-          <Route path="/archive" element={<Archive clickStyle={{ clickStyle }} />} />
+          <Route
+            path="/archive"
+            element={<Archive clickStyle={{ clickStyle }} isSession={isSession} setIsSession={setIsSession} />}
+          />
         </Routes>
       </Router>
     </div>
