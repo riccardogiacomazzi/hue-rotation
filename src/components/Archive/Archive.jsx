@@ -60,18 +60,7 @@ const Archive = ({ isSession, setIsSession }) => {
 
   useEffect(() => {
     const fetchGradients = async () => {
-      try {
-        const response = await fetch("https://hue-rotation-backend.onrender.com/api/gradients");
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setFullArchive(data);
-      } catch (err) {
-        console.error("Error fetching gradients");
-      }
+      getGradients();
     };
 
     fetchGradients();

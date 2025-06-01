@@ -1,6 +1,8 @@
 export async function postGradient({ html, timestamp }) {
+  const url = "https://hue-rotation-backend-git-vercel-riccardogiacomazzis-projects.vercel.app/api/post";
+
   try {
-    const response = await fetch("https://hue-rotation-backend.onrender.com/api/gradients", {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,8 +22,9 @@ export async function postGradient({ html, timestamp }) {
 }
 
 export async function getGradients() {
+  const url = "https://hue-rotation-backend-git-vercel-riccardogiacomazzis-projects.vercel.app/api/get";
   try {
-    const response = await fetch("https://hue-rotation-backend.onrender.com/api/gradients");
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch gradients: ${response.statusText}`);
