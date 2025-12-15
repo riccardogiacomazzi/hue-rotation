@@ -1,5 +1,5 @@
 export async function postGradient({ html, timestamp }) {
-  const url = "https://hue-rotation-backend-git-vercel-riccardogiacomazzis-projects.vercel.app/api/post";
+  const url = "https://hue-rotation-backend.vercel.app/api/post";
 
   try {
     const response = await fetch(url, {
@@ -22,7 +22,7 @@ export async function postGradient({ html, timestamp }) {
 }
 
 export async function getGradients() {
-  const url = "https://hue-rotation-backend-git-vercel-riccardogiacomazzis-projects.vercel.app/api/get";
+  const url = "https://hue-rotation-backend.vercel.app/api/get";
   try {
     const response = await fetch(url);
 

@@ -3,17 +3,19 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-auto-rows: 1;
   overflow-y: auto;
-  gap: 0;
+  gap: 0.5rem;
+  padding-top: 11vh;
 }
 
 @media (max-width: 764px) {
   .full-archive-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem;
   }
 }
 
@@ -22,6 +24,9 @@
   width: 100%;
   position: absolute;
   font-family: "Disket";
+  padding: 5px;
+  color: white;
+  mix-blend-mode: soft-light;
 }
 
 .full-archive-grid-item {
@@ -32,6 +37,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.skeleton-item {
+  height: 200px;
+  background-color: #e0e0e0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.skeleton-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, transparent, #ffffff66, transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
 }
 
 .archive-html-wrapper {

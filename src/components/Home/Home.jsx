@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Home.css";
-import { postGradient } from "../../services/gradients";
+import { postGradient, getGradients } from "../../services/gradients";
 
 const Home = ({ currentStyle, setCurrentStyle, sliderValues, onGradientClick }) => {
   const topRef = useRef(null);
@@ -12,17 +12,19 @@ const Home = ({ currentStyle, setCurrentStyle, sliderValues, onGradientClick }) 
       const bottomHtml = bottomRef.current.outerHTML;
 
       const combinedHtml = `<div class="home-gradient-html">${topHtml}${bottomHtml}</div>`;
+      let isInArchive;
 
-      const stored = sessionStorage.getItem("storedGradientHTMLArray");
-      const htmlArray = stored ? JSON.parse(stored) : [];
+      //check if current gradient already in archive
+      try {
+        const allGradients = await getGradients();
+        isInArchive = allGradients.some((item) => item.html === combinedHtml);
+      } catch (error) {
+        console.log(error);
+      }
 
-      const isDuplicate = htmlArray.includes(combinedHtml);
-      if (!isDuplicate) {
+      // saves in archive only if not already saved
+      if (!isInArchive) {
         onGradientClick();
-        htmlArray.push(combinedHtml);
-        sessionStorage.setItem("storedGradientHTMLArray", JSON.stringify(htmlArray));
-
-        // Send to backend
         try {
           await postGradient({
             html: combinedHtml,
